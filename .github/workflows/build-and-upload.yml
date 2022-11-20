@@ -37,3 +37,19 @@ jobs:
           name: blackmagic-firmware.zip
           path: src/artifacts/*
           if-no-files-found: error
+
+  build-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: numworks/setup-arm-toolchain@2020-q4
+      - name: Install BMDA dependencies
+        run: sudo apt-get -y install libusb-dev libftdi1-dev libhidapi-dev
+      - name: Build all platform firmwares and Linux BMDA
+        run: make ENABLE_DEBUG=1 KEEP_GOING=1 all_platforms
+      - name: Archive firmware build artifacts as a zip
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: blackmagic-firmware-debug.zip
+          path: src/artifacts/*
+          if-no-files-found: error

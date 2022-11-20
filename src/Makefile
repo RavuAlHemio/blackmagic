@@ -2,6 +2,7 @@ PROBE_HOST ?= native
 PLATFORM_DIR = platforms/$(PROBE_HOST)
 VPATH += $(PLATFORM_DIR) target
 ENABLE_DEBUG ?=
+KEEP_GOING ?=
 
 ifneq ($(V), 1)
 MAKEFLAGS += --no-print-dir
@@ -146,7 +147,7 @@ all_platforms:
 		git submodule update ;\
 	fi
 	$(Q)$(MAKE) $(MFLAGS) -C ../libopencm3 lib/stm32/f1 lib/stm32/f4 lib/lm4f
-	$(Q)set -e ;\
+	$(Q)if [ "x$(KEEP_GOING)" != "x1" ]; then $(Q)set -e ; fi ;\
 	mkdir -p artifacts/$(shell git describe --always --dirty --tags) ;\
 	echo "<html><body><ul>" > artifacts/index.html ;\
 	$(MAKE) clean ;\
