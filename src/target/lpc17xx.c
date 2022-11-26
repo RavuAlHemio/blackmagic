@@ -1,3 +1,4 @@
+#if !defined(BLACKMAGIC)
 /*
  * This file is part of the Black Magic Debug project.
  *
@@ -176,3 +177,4 @@ iap_status_e lpc17xx_iap_call(target_s *t, flash_param_s *param, iap_cmd_e cmd, 
 	target_mem_read(t, (void *)param, IAP_RAM_BASE, sizeof(flash_param_s));
 	return param->result[0];
 }
+#endif

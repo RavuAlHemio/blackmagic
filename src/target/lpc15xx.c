@@ -1,3 +1,4 @@
+#if !defined(BLACKMAGIC)
 /*
  * This file is part of the Black Magic Debug project.
  *
@@ -95,3 +96,4 @@ bool lpc15xx_probe(target_s *t)
 	target_add_commands(t, lpc15xx_cmd_list, "LPC15xx");
 	return true;
 }
+#endif

@@ -675,9 +675,11 @@ bool cortexm_probe(adiv5_access_port_s *ap)
 	case JEP106_MANUFACTURER_TEXAS:
 		PROBE(msp432_probe);
 		break;
+#if !defined(BLACKMAGIC)
 	case JEP106_MANUFACTURER_SPECULAR:
 		PROBE(lpc11xx_probe); /* LPC845 */
 		break;
+#endif
 	case JEP106_MANUFACTURER_RASPBERRY:
 		PROBE(rp_probe);
 		break;
@@ -690,17 +692,25 @@ bool cortexm_probe(adiv5_access_port_s *ap)
 		 * consistent and easier to add new probe calls to.
 		 */
 		if (t->part_id == 0x4c0U) {        /* Cortex-M0+ ROM */
+#if !defined(BLACKMAGIC)
 			PROBE(lpc11xx_probe);          /* LPC8 */
+#endif
 		} else if (t->part_id == 0x4c1U) { /* NXP Cortex-M0+ ROM */
+#if !defined(BLACKMAGIC)
 			PROBE(lpc11xx_probe);          /* newer LPC11U6x */
+#endif
 		} else if (t->part_id == 0x4c3U) { /* Cortex-M3 ROM */
 			PROBE(lmi_probe);
 			PROBE(ch32f1_probe);
 			PROBE(stm32f1_probe);          /* Care for other STM32F1 clones (?) */
+#if !defined(BLACKMAGIC)
 			PROBE(lpc15xx_probe);          /* Thanks to JojoS for testing */
+#endif
 		} else if (t->part_id == 0x471U) { /* Cortex-M0 ROM */
+#if !defined(BLACKMAGIC)
 			PROBE(lpc11xx_probe);          /* LPC24C11 */
 			PROBE(lpc43xx_probe);
+#endif
 		} else if (t->part_id == 0x4c4U) { /* Cortex-M4 ROM */
 			PROBE(lmi_probe);
 			/* The LPC546xx and LPC43xx parts present with the same AP ROM Part
@@ -710,8 +720,10 @@ bool cortexm_probe(adiv5_access_port_s *ap)
 			Lockup, requiring a RST pulse to recover. Instead, make sure to
 			probe for the LPC546xx first, which experimentally doesn't harm
 			LPC43xx detection. */
+#if !defined(BLACKMAGIC)
 			PROBE(lpc546xx_probe);
 			PROBE(lpc43xx_probe);
+#endif
 			PROBE(kinetis_probe); /* Older K-series */
 			PROBE(at32fxx_probe);
 		} else if (t->part_id == 0x4cbU) { /* Cortex-M23 ROM */
@@ -725,8 +737,10 @@ bool cortexm_probe(adiv5_access_port_s *ap)
 		 */
 		PROBE(sam3x_probe);
 		PROBE(ke04_probe);
+#if !defined(BLACKMAGIC)
 		PROBE(lpc17xx_probe);
 		PROBE(lpc11xx_probe); /* LPC1343 */
+#endif
 		break;
 	}
 #if PC_HOSTED == 0

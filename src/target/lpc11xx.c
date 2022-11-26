@@ -1,3 +1,4 @@
+#if !defined(BLACKMAGIC)
 /*
  * This file is part of the Black Magic Debug project.
  *
@@ -307,3 +308,4 @@ static bool lpc11xx_read_uid(target_s *t, int argc, const char **argv)
 	tc_printf(t, "\n");
 	return true;
 }
+#endif

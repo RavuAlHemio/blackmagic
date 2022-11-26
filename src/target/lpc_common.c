@@ -1,3 +1,4 @@
+#if !defined(BLACKMAGIC)
 /*
  * This file is part of the Black Magic Debug project.
  *
@@ -275,3 +276,4 @@ bool lpc_flash_write_magic_vect(target_flash_s *f, target_addr_t dest, const voi
 	}
 	return lpc_flash_write(f, dest, src, len);
 }
+#endif

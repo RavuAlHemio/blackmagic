@@ -1,3 +1,4 @@
+#if !defined(BLACKMAGIC)
 /*
  * This file is part of the Black Magic Debug project.
  *
@@ -319,3 +320,4 @@ static void lpc546xx_wdt_kick(target_s *t)
 		target_mem_write32(t, LPC546XX_WDT_FEED, 0xff);
 	}
 }
+#endif
